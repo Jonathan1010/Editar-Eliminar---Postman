@@ -1,0 +1,39 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml"
+      xmlns:ui="http://xmlns.jcp.org/jsf/facelets"
+      xmlns:h="http://xmlns.jcp.org/jsf/html"
+      xmlns:f="http://xmlns.jcp.org/jsf/core"
+      xmlns:p="http://primefaces.org/ui">
+
+    <ui:composition>
+
+        <p:dialog id="EmpleadoCreateDlg" widgetVar="EmpleadoCreateDialog" modal="true" resizable="false" appendTo="@(body)" header="#{bundle.CreateEmpleadoTitle}">
+            <h:form id="EmpleadoCreateForm">
+                <h:panelGroup id="display">
+                    <p:panelGrid columns="2" rendered="#{empleadoController.selected != null}">
+                        <p:outputLabel value="#{bundle.CreateEmpleadoLabel_codigo}" for="codigo" />
+                        <p:inputText id="codigo" value="#{empleadoController.selected.codigo}" title="#{bundle.CreateEmpleadoTitle_codigo}" required="true" requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_codigo}"/>
+                        <p:outputLabel value="#{bundle.CreateEmpleadoLabel_nif}" for="nif" />
+                        <p:inputText id="nif" value="#{empleadoController.selected.nif}" title="#{bundle.CreateEmpleadoTitle_nif}" required="true" requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_nif}"/>
+                        <p:outputLabel value="#{bundle.CreateEmpleadoLabel_nombre}" for="nombre" />
+                        <p:inputText id="nombre" value="#{empleadoController.selected.nombre}" title="#{bundle.CreateEmpleadoTitle_nombre}" required="true" requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_nombre}"/>
+                        <p:outputLabel value="#{bundle.CreateEmpleadoLabel_apellido1}" for="apellido1" />
+                        <p:inputText id="apellido1" value="#{empleadoController.selected.apellido1}" title="#{bundle.CreateEmpleadoTitle_apellido1}" required="true" requiredMessage="#{bundle.CreateEmpleadoRequiredMessage_apellido1}"/>
+                        <p:outputLabel value="#{bundle.CreateEmpleadoLabel_apellido2}" for="apellido2" />
+                        <p:inputText id="apellido2" value="#{empleadoController.selected.apellido2}" title="#{bundle.CreateEmpleadoTitle_apellido2}" />
+                        <p:outputLabel value="#{bundle.CreateEmpleadoLabel_codigoDepartamento}" for="codigoDepartamento" />
+                        <p:selectOneMenu id="codigoDepartamento" value="#{empleadoController.selected.codigoDepartamento}" >
+                            <f:selectItems value="#{departamentoController.itemsAvailableSelectOne}"
+                                           var="codigoDepartamentoItem"
+                                           itemValue="#{codigoDepartamentoItem}"/>
+                        </p:selectOneMenu>
+                    </p:panelGrid>
+                    <p:commandButton actionListener="#{empleadoController.create}" value="#{bundle.Save}" update="display,:EmpleadoListForm:datalist,:growl" oncomplete="handleSubmit(args,'EmpleadoCreateDialog');"/>
+                    <p:commandButton value="#{bundle.Cancel}" onclick="EmpleadoCreateDialog.hide()"/>
+                </h:panelGroup>
+            </h:form>
+        </p:dialog>
+
+    </ui:composition>
+</html>
